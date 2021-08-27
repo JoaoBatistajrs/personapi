@@ -1,16 +1,30 @@
 package one.digitalinnovation.personapi.resources;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import one.digitalinnovation.personapi.domain.Person;
+import one.digitalinnovation.personapi.dto.MessageResponseDTO;
+import one.digitalinnovation.personapi.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/person")
 public class PersonResources {
 
-    @GetMapping
-    public String getPerson(){
-        return "Api Teste";
+    private PersonService personService;
+
+    @Autowired
+    public PersonResources (PersonService personService) {
+        this.personService = personService;
     }
+
+    @PostMapping
+    @ApiOperation(value = "Inclui uma nova pessoa no banco de dados")
+    @ResponseStatus(HttpStatus.CREATED)
+    public MessageResponseDTO createPerson (@RequestBody Person person){
+        return personService.createperson(person);
+    }
+
 }

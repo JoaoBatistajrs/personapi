@@ -4,35 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import one.digitalinnovation.personapi.enums.PhoneType;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
-
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Person {
+public class Phone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String firstName;
+    private PhoneType type;
 
     @Column(nullable = false)
-    private String lastName;
-
-    @Column(nullable = false, unique = true)
-    private String cpf;
-
-    private LocalDate birthDate;
-
-    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REMOVE})
-    private List<Phone> phones;
+    private String number;
 
 }
