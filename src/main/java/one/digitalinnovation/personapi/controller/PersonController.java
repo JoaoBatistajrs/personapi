@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/person")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
+@CrossOrigin(origins="*")
 public class PersonController {
 
     private PersonService personService;
@@ -35,20 +36,21 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Seleciona através do ID um registro de pessoas contido no banco de dados")
+    @ApiOperation(value = "Seleciona através do ID um registro de pessoas, contido no banco de dados")
     public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
         return personService.findById(id);
 
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "Atualiza através do ID um registro de pessoas, contido no banco de dados")
     public MessageResponseDTO updateById (@PathVariable Long id, @RequestBody PersonDTO personDTO) throws PersonNotFoundException {
         return personService.updateById(id, personDTO);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @ApiOperation(value = "Deleta através do ID um registro de pessoas contido no banco de dados")
+    @ApiOperation(value = "Deleta através do ID um registro de pessoas, contido no banco de dados")
     public void deleteById(@PathVariable Long id) throws PersonNotFoundException  {
         personService.deleteById(id);
     }

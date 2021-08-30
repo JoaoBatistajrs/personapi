@@ -22,15 +22,15 @@ public class SwaggerConfig {
     public Docket produtoapi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("one.digitalinnnovation.personapi"))
-                .paths(regex("/api.*"))
+                .apis(RequestHandlerSelectors.basePackage("one.digitalinnovation.personapi"))
+                .paths(regex("/api/v1/person.*"))
                 .build()
                 .apiInfo(metaInfo());
     }
     private ApiInfo metaInfo() {
         ApiInfo apiInfo = new ApiInfo(
                 "Person API REST",
-                "API REST para cadastro de perssoas.",
+                "API REST para cadastro de pessoas.",
                 "1.0",
                 "Terms of service",
                 new Contact("João Batista","joaobatista.com.br","joao.batista.jrs@gmail.com"),
