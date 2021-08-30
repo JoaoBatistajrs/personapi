@@ -2,6 +2,7 @@ package one.digitalinnovation.personapi.controller;
 
 
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import one.digitalinnovation.personapi.dto.request.PersonDTO;
 import one.digitalinnovation.personapi.dto.response.MessageResponseDTO;
 import one.digitalinnovation.personapi.exception.PersonNotFoundException;
@@ -15,14 +16,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/person")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonController {
 
     private PersonService personService;
-
-    @Autowired
-    public PersonController (PersonService personService) {
-        this.personService = personService;
-    }
 
     @PostMapping
     @ApiOperation(value = "Inclui uma nova pessoa no banco de dados")
@@ -32,19 +29,26 @@ public class PersonController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Seleciona todos os registros de pessoas inseridos no banco de dados")
+    @ApiOperation(value = "Seleciona todos os registros de pessoas contidos no banco de dados")
     public List<PersonDTO> listAll(){
         return personService.listAll();
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Seleciona através do ID um registro de pessoas contido no banco de dados")
     public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
         return personService.findById(id);
 
     }
 
+    @PutMapping("/{id}")
+    public MessageResponseDTO updateById (@PathVariable Long id, @RequestBody PersonDTO personDTO) throws PersonNotFoundException {
+        return personService.updateById(id, personDTO);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(value = "Deleta através do ID um registro de pessoas contido no banco de dados")
     public void deleteById(@PathVariable Long id) throws PersonNotFoundException  {
         personService.deleteById(id);
     }
