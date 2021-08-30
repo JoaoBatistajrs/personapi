@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/person")
@@ -29,4 +30,9 @@ public class PersonController {
         return personService.createperson(personDTO);
     }
 
+    @GetMapping
+    @ApiOperation(value = "Seleciona todos os registros de pessoas inseridos no banco de dados")
+    public List<PersonDTO> listAll(){
+        return personService.listAll();
+    }
 }
